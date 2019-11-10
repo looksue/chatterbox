@@ -1,6 +1,6 @@
-// require modules (don't forget to npm install them too)
-var express = require('express');
-var exphbs = require('express-handlebars');
+// require modules (don"t forget to npm install them too)
+var express = require("express");
+var exphbs = require("express-handlebars");
 var db = require("./models");
 
 // declare variables
@@ -15,5 +15,5 @@ require("./controllers/scrape_controller.js")(app);
 
 // run it
 app.listen(PORT, function() {
-    console.log(`Chatterbox listening on PORT ${PORT}`);
-})
+    console.log("Chatterbox listening on PORT ${PORT}");
+});
