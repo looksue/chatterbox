@@ -13,16 +13,39 @@ mongoose.connect(MONGODB_URI);
 
 var mongooseConnection = mongoose.connection;
 mongooseConnection.on("error", console.error.bind(console, "connection error:")); // show errors
-mongooseConnection.once("open", function() {
+mongooseConnection.once("open", function () {
     console.log("Mongoose connection worked");
 });
 
 // export this stuff for other modules
-module.exports = function(app) {
-
+module.exports = function (app) {
     // Set up routes
-    app.get("/", function(req, res) {
+    app.get("/", function (req, res) {
         res.render("index");
     });
-
 };
+
+//get StackOverflow news
+app.get("/scraper", function (req, res) {
+    axios.get("https://stackover.com/").then(function (response) {
+        var $ = cheerio.load(response.data);
+        var news = {};
+
+        $("a.question-hyperlink").each(function (i, element) {
+            news.title = $(this).text();
+            news.link = $(this).attr("href");
+            database.Question.create(news)
+                .then(function (newQuestion) {
+                    console.log(newQuestion);
+                })
+                .catch(function (err) {
+                    return res.json(err);
+                });
+            res.send("News scraped");
+        });
+    });
+});
+
+
+
+
