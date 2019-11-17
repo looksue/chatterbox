@@ -46,6 +46,31 @@ app.get("/scraper", function (req, res) {
     });
 });
 
+// get Questions
+app.get("/Questions", function (req, res) {
+    database.Question.find({})
+        .then(function (newQuestion) {
+            res.json(newQuestion);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+});
+
+//get a certain Question
+app.get("/Questions/:id", function (req, res) {
+    database.Question.findOne({
+        _id: req.params._id
+    })
+        .populate("note")
+        .then(function (newQuestion) {
+            res.json(newQuestion);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+});
+
 
 
 
