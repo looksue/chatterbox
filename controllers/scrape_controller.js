@@ -71,6 +71,35 @@ app.get("/Questions/:id", function (req, res) {
         });
 });
 
+//save a Note
+app.post("/Questions/:id", function (req, res) {
+    database.Note.create(req.body)
+        .then(function (newNote) {
+            //Making the new Note worked, so tie it to the Question that has the matching id.
+            //The second .then function will get back that updated Question and data, because of the promise
+            return database.Question.findOneAndUpdate(
+                {
+                    _id: req.params._id
+                },
+                {
+                    note: newNote._id
+                },
+                {
+                    new: true
+                }
+            );
+        })
+        .then(function (newQuestion) {
+            //Update Question worked
+            res.json(newQuestion);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+});
+
+
+
 
 
 
