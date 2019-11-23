@@ -29,8 +29,10 @@ module.exports = function (app) {
         axios.get("https://stackoverflow.com/questions").then(function (response) {
             var $ = cheerio.load(response.data);
             var news = {};
+            var num = 0;
 
             $("a.question-hyperlink").each(function (i, element) {
+                num += 1;
                 news.title = $(this).text();
                 news.link = $(this).attr("href");
                 database.Question.create(news)
@@ -41,7 +43,10 @@ module.exports = function (app) {
                         return res.json(err);
                     });
             });
-            res.send("Questions scraped");
+            // res.send("Questions scraped");
+            var hbsObject = { news: news, num: num };
+            //redirect to articles page and display results
+            res.render("index", hbsObject);
         });
     });
 
