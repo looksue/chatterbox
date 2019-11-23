@@ -1,5 +1,5 @@
+var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-
 // create a new Question schema from it
 var QuestionSchema = new Schema({
   title: {
