@@ -28,14 +28,18 @@ module.exports = function (app) {
     app.get("/scraper", function (req, res) {
         axios.get("https://stackoverflow.com/questions").then(function (response) {
             var $ = cheerio.load(response.data);
-            var news = {};
             var num = 0;
+            var questions = [];
 
             $("a.question-hyperlink").each(function (i, element) {
                 num += 1;
-                news.title = $(this).text();
-                news.link = $(this).attr("href");
-                database.Question.create(news)
+                var question = {};
+                question.title = $(this).text();
+                question.link = "https://stackoverflow.com" + $(this).attr("href");
+                if (question.title && question.link) {
+                    questions.push(question);
+                }
+                database.Question.create(question)
                     .then(function (newQuestion) {
                         console.log(newQuestion);
                     })
@@ -44,7 +48,7 @@ module.exports = function (app) {
                     });
             });
             // res.send("Questions scraped");
-            var hbsObject = { news: news, num: num };
+            var hbsObject = { question: questions, num: num };
             //redirect to articles page and display results
             res.render("index", hbsObject);
         });
