@@ -1,7 +1,6 @@
 // require modules (don"t forget to npm install them too)
 var express = require("express");
 var exphbs = require("express-handlebars");
-var database = require("./models");
 
 // declare variables
 var PORT = process.env.PORT || 3000; // set port to local or environment variable for Heroku
