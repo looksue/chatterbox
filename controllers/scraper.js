@@ -9,7 +9,7 @@ var database = require("../models");
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/chatterbox";
 
 // actually connect to MongoDB
-mongoose.connect(MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false });
 
 var mongooseConnection = mongoose.connection;
 mongooseConnection.on("error", console.error.bind(console, "connection error:")); // show errors
@@ -41,13 +41,13 @@ module.exports = function (app) {
                 }
                 database.Question.create(question)
                     .then(function (newQuestion) {
+                        question.id = newQuestion._id;
                         console.log(newQuestion);
                     })
                     .catch(function (err) {
                         return res.json(err);
                     });
             });
-            // res.send("Questions scraped");
             var hbsObject = { question: questions, num: num };
             //redirect to articles page and display results
             res.render("index", hbsObject);
