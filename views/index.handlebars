@@ -1,9 +1,18 @@
-    <h1>Chat Overflow</h1>
+<!-- Saved question modal popup -->
+<div id="modalMessage" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <h4>Question Saved!</h4>
+    </div>
+  </div>
+</div>
+
+<h1>Chat Overflow</h1>
 <!-- Navigation bar-->
 <nav>
   <div>
-    <a href="/">Chatterbox Question Scraper</a> | 
-    <a href="/scraper">Scrape Questions</a> | 
+    <a href="/">Chatterbox Question Scraper</a> |
+    <a href="/scraper">Scrape Questions</a> |
     <a href="/Questions">Saved Questions</a>
   </div>
 </nav>
@@ -15,7 +24,7 @@
   <ul class="collection">
     {{#unless this.num}}
     <li class="collection-item grey lighten-1 black-text">
-      <h4>Scrape questions by pressing the Scrape Questions link/button.</h4>
+      <h4>Scrape questions by pressing the Scrape Questions link.</h4>
     </li>
     {{/unless}}
     {{#if this.num}}
@@ -26,6 +35,7 @@
   </ul>
 </div>
 
+<!-- Questions go here -->
 <div class="container">
   <div class="row">
     {{#each question}}
@@ -33,8 +43,9 @@
       <div class="card">
         <div style="height: 100%; width: 100%; position:absolute; z-index:1000;"></div>
         <span class="card-title">{{this.title}}</span>
-        <a class="addArticle btn-floating halfway-fab modal-trigger" style="z-index:101;" href="#modalMessage"
-          data-toggle="modal" id="savenote" data-id="{{this.id}}" data-url="{{this.link}}">Save</a>
+        <a class="addArticle btn-floating halfway-fab modal-trigger" style="z-index:101" href="#modalMessage"
+          data-target="#modalMessage" data-toggle="modal" id="save" data-id="{{this._id}}" data-title="{{this.title}}"
+          data-link="{{this.link}}">Save</a>
       </div>
       <div class="card-content">
         <span class="card-title activator grey-text text-darken-4">
@@ -44,13 +55,6 @@
   </div>
   {{/each}}
 </div>
-</div>
-
-<!-- Saved popup -->
-<div id="modalMessage" class="modal">
-  <div class="modal-content">
-    <h4>Question Saved!</h4>
-  </div>
 </div>
 
 <!-- Saved question popup -->

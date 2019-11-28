@@ -2,10 +2,7 @@
 var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
-var express = require("express");
 var database = require("../models");
-var Note = require("../models/Note");
-var Question = require("../models/Question");
 
 // point to mongoose
 // If deployed, use the deployed database.  Otherwise use the local chatterbox database
@@ -44,7 +41,7 @@ module.exports = function (app) {
                 }
                 database.Question.create(question)
                     .then(function (newQuestion) {
-            question._id = newQuestion._id;
+                        question.id = newQuestion._id;
                         console.log(newQuestion);
                     })
                     .catch(function (err) {
@@ -68,18 +65,8 @@ module.exports = function (app) {
             });
     });
 
-  //save a question
-  app.post("/save", function(req, res) {
-    database.Question.save(function(error, doc) {
-      if (error) {
-        console.log(error);
-      } else {
-        res.send("Question has been saved");
-      }
-    });
-  });
     //get a certain Question
-  app.get("/Questions/:_id", function(req, res) {
+    app.get("/Questions/:id", function (req, res) {
         database.Question.findOne({
             _id: req.params._id
         })
@@ -93,7 +80,7 @@ module.exports = function (app) {
     });
 
     //save a Note
-  app.post("/Questions/:_id", function(req, res) {
+    app.post("/Questions/:id", function (req, res) {
         database.Note.create(req.body)
             .then(function (newNote) {
                 //Making the new Note worked, so tie it to the Question that has the matching id.
@@ -118,10 +105,4 @@ module.exports = function (app) {
                 res.json(err);
             });
     });
-  // catch 404 and forward to error handler
-  app.use(function(req, res, next) {
-    var err = new Error("Not Found");
-    err.status = 404;
-    next(err);
-  });
 };

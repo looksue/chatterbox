@@ -64,4 +64,19 @@ $.getJSON("/questions", function(data) {
     // clear out the note fields
     $("#titleinput").val("");
     $("#bodyinput").val("");
+});
+
+//save an article
+$(document).on("click", "#save", function() {
+  // Grab the id associated with the article from the Save link
+  var thisId = $(this).attr("data-id");
+
+  $.ajax({
+    method: "POST",
+    url: "/save/" + thisId,
+    data: {
+      title: $(this).data("title"),
+      link: $(this).data("link")
+    }
   });
+});
