@@ -1,5 +1,11 @@
-// get the questions
-$.getJSON("/questions", function(data) {
+$(document).ready(function() {
+  // set up the modal windows
+  $("#modalQuestionSaved").modal(); // save a question
+  $("#modalSavedQuestions").modal(); // saved questions
+  $("#modalNotes").modal(); // notes
+
+  // get the questions
+  $.getJSON("/questions", function(data) {
     // do this for each
     for (var i = 0; i < data.length; i++) {
       // append the question on the page
@@ -16,13 +22,13 @@ $.getJSON("/questions", function(data) {
       );
     }
   });
-  
-  // make event listener for list elements
+
+  // display a question and its notes
   $(document).on("click", "li", function() {
     $("#notes").empty();
     var thisId = $(this).attr("data-id");
-  
-    // get the article
+
+    // get the question
     $.ajax({
       method: "GET",
       url: "/questions/" + thisId
@@ -36,7 +42,6 @@ $.getJSON("/questions", function(data) {
         $("#notes").append(
           "<button data-id='" + data._id + "' id='savenote'>Save Note</button>"
         );
-  
         // If there's a note already
         if (data.note) {
           $("#titleinput").val(data.note.title);
@@ -44,11 +49,11 @@ $.getJSON("/questions", function(data) {
         }
       });
   });
-  
+
   // event listener for the save note button
   $(document).on("click", "#savenote", function() {
     var thisId = $(this).attr("data-id");
-  
+
     $.ajax({
       method: "POST",
       url: "/questions/" + thisId,
@@ -60,23 +65,38 @@ $.getJSON("/questions", function(data) {
       console.log(data);
       $("#notes").empty();
     });
-  
     // clear out the note fields
     $("#titleinput").val("");
     $("#bodyinput").val("");
-});
+  });
 
-//save an article
-$(document).on("click", "#save", function() {
-  // Grab the id associated with the article from the Save link
-  var thisId = $(this).attr("data-id");
+  // save a question
+  $(".saveQuestion").on("click", function(element) {
+    let title = $(this).attr("data-title");
+    let link = $(this).attr("data-link");
 
-  $.ajax({
-    method: "POST",
-    url: "/save/" + thisId,
-    data: {
-      title: $(this).data("title"),
-      link: $(this).data("link")
-    }
+    // make an object to hold the question
+    let savedQuestion = {
+      title,
+      link,
+      notes: null
+    };
+
+    fetch("/save", {
+      // Send savedQuestion to MongoDB
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(savedQuestion)
+    }).then(response => {
+      console.log(response);
+      $("#modalQuestionSaved").modal("open");
+      $("#modalQuestionSaved .modal-content ").html(
+        "<h4> Question Saved! </h4>"
+      );
+      setTimeout(() => $("#modalQuestionSaved").modal("close"), 1500);
+      $(document.getElementById(link)).css("display", "none");
+    });
   });
 });

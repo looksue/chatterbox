@@ -1,73 +1,85 @@
-body {
-    background-image: url("/assets/css/sq_background.jpeg");
-    z-index: -2;
-    content: "";
-    position: sticky; 
-    opacity: 0.8;
-    background-size: cover;
-    height: 100%;
-    width: 100%;
-  }
-  .collection {
-      width: 100%;
-  }
-  #wrapper {
-    width: 960px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 5%;
+body::after {
+  content: "";
+  background-image: url("/assets/css/sq_background.jpeg");
+  opacity: 0.5;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
 }
+
+.collection {
+  width: 100%;
+}
+
+.btn-floating {
+  width: 130px;
+  padding: 0px 20px 0px 20px;
+  margin: 0px 20px 10px 20px;
+}
+
+.card-content {
+  padding-top: 0px !important;
+}
+
+#wrapper {
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 5%;
+}
+
 #questions {
-    display: inline-block;
-    overflow: auto;
-    width: 90%;
-    height: 700px;
+  display: inline-block;
+  overflow: auto;
+  width: 90%;
+  height: 700px;
 }
 
 #notes {
-    float: right;
-    width: 30%;
-    color: black;
-    background-color: #979bad;
-    padding: 15px;
+  float: right;
+  width: 30%;
+  color: black;
+  background-color: #979bad;
+  padding: 15px;
 }
 
 textarea,
 input {
-    display: block;
-    width: 100%;
-    background-color: #223483;
- }
+  display: block;
+  width: 100%;
+  background-color: #223483;
+}
 
 input {
-    height: 150px;
-    font-size: 24px;
+  height: 150px;
+  font-size: 24px;
 }
-    
-textarea{
-    height: 100px;
-    font-size: 15px;
+
+textarea {
+  height: 100px;
+  font-size: 15px;
 }
 
 .container {
-    position: relative;
-    margin: 0 auto;
-    width: 400px;
-    font-size: 15px;
-    padding: 20px;
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  font-size: 15px;
+  padding: 20px;
 }
 
-nav.navbar.navbar-expand.lg.navbar-dark.bg-dark.text-white {
-    background-color: #232e5e;
+nav {
+  padding-left: 20px;
+  background-color: #474274;
 }
 
-ul nav.navbar-nav.navbar-right {
-    position: right;
-}
-
-.navbar.navbar-light.bg-light {
-    width: 100%;
-    background-color: #232e5e;
-    padding: 0px;
-    border-top: 40px solid #232e5e;
+nav a.selected,
+nav a:hover {
+  color: rgb(223, 126, 223);
 }
