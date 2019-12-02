@@ -72,13 +72,13 @@ module.exports = function(app) {
   // save a question (put in the database)
   app.post("/save", function(req, res) {
     let questionObject = req.body;
-    database.Questions.find({ link: questionObject.link })
+    database.Question.find({ link: questionObject.link })
       .limit(1) // save the question if not already saved
       .then(function(response) {
         if (response === null) {
           // if not, save it
-          database.Questions.create(questionObject)
-            .then(response => console.log(" "))
+          database.Question.create(questionObject)
+            .then(response => console.log("Question saved"))
             .catch(err => res.json(err));
         }
         res.send("Question saved");
