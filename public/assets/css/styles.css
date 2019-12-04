@@ -13,6 +13,10 @@ body::after {
   z-index: -1;
 }
 
+#modalSavedQuestions {
+  overflow: auto;
+  background-color: darkgrey;  
+}
 .collection {
   width: 100%;
 }

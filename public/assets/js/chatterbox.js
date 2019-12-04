@@ -5,22 +5,25 @@ $(document).ready(function() {
   $("#modalNotes").modal(); // notes
 
   // get the questions
-  $.getJSON("/questions", function(data) {
-    // do this for each
-    for (var i = 0; i < data.length; i++) {
-      // append the question on the page
-      $("#questions").append(
-        "<li data-id='" +
-          data[i]._id +
-          "'>" +
-          data[i].title +
-          "<br />" +
-          data[i].link +
-          "</li>" +
-          "<br />" +
-          "<br />"
-      );
-    }
+  $(document).on("click", "#getSavedQuestions", function() {
+    $.getJSON("/Questions", function(data) {
+      // do this for each
+      for (var i = 0; i < data.length; i++) {
+        // append the question on the page
+        $("#questions").append(
+          "<li data-id='" +
+            data[i]._id +
+            "'>" +
+            data[i].title +
+            "<br />" +
+            data[i].link +
+            "</li>" +
+            "<br />" +
+            "<br />"
+        );
+      }
+    });
+    $("#modalSavedQuestions").modal("open");
   });
 
   // display a question and its notes
@@ -31,7 +34,7 @@ $(document).ready(function() {
     // get the question
     $.ajax({
       method: "GET",
-      url: "/questions/" + thisId
+      url: "/Questions/" + thisId
     })
       // print the note(s)
       .then(function(data) {
@@ -56,7 +59,7 @@ $(document).ready(function() {
 
     $.ajax({
       method: "POST",
-      url: "/questions/" + thisId,
+      url: "/Questions/" + thisId,
       data: {
         title: $("#titleinput").val(),
         body: $("#bodyinput").val()

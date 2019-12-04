@@ -76,10 +76,8 @@ module.exports = function(app) {
       .limit(1) // save the question if not already saved
       .then(function(response) {
         //        if (response === null) {
-        console.log("About the check the response" + ":" + response + ":");
-        if (response) {
+        if (response.length === 0) {
           // if not, save it
-          console.log("About to create the new question");
           database.Question.create(questionObject)
             .then(response => console.log("Question saved"))
             .catch(err => res.json(err));

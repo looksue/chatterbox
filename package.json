@@ -25,6 +25,6 @@
     "handlebars": "^4.5.3",
     "jquery": "^3.4.1",
     "materialize": "^1.0.0",
-    "mongoose": "^5.7.12"
+    "mongoose": "^5.7.13"
   }
 }
