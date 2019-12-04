@@ -31,7 +31,7 @@ module.exports = function(app) {
     res.render("index");
   });
 
-  //get StackOverflow news
+  //get StackOverflow questions
   app.get("/scraper", function(req, res) {
     axios.get("https://stackoverflow.com/questions").then(function(response) {
       var $ = cheerio.load(response.data);
@@ -75,8 +75,11 @@ module.exports = function(app) {
     database.Question.find({ link: questionObject.link })
       .limit(1) // save the question if not already saved
       .then(function(response) {
-        if (response === null) {
+        //        if (response === null) {
+        console.log("About the check the response" + ":" + response + ":");
+        if (response) {
           // if not, save it
+          console.log("About to create the new question");
           database.Question.create(questionObject)
             .then(response => console.log("Question saved"))
             .catch(err => res.json(err));
