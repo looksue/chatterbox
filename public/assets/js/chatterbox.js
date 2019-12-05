@@ -28,7 +28,7 @@ $(document).ready(function() {
 
   // display a question and its notes
   $(document).on("click", "li", function() {
-    $("#notes").empty();
+    $("#modalNotes").empty();
     var thisId = $(this).attr("data-id");
 
     // get the question
@@ -39,10 +39,15 @@ $(document).ready(function() {
       // print the note(s)
       .then(function(data) {
         console.log(data);
-        $("#notes").append("<h2>" + data.title + "</h2>");
-        $("#notes").append("<input id='titleinput' name='title' >");
-        $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-        $("#notes").append(
+        $("#modalNotes").append("<h2>" + data.title + "</h2>");
+        $("#modalNotes").append(
+          "<h4>(click outside this window to close)</h4>"
+        );
+        $("#modalNotes").append("<input id='titleinput' name='title' >");
+        $("#modalNotes").append(
+          "<textarea id='bodyinput' name='body'></textarea>"
+        );
+        $("#modalNotes").append(
           "<button data-id='" + data._id + "' id='savenote'>Save Note</button>"
         );
         // If there's a note already
@@ -51,6 +56,7 @@ $(document).ready(function() {
           $("#bodyinput").val(data.note.body);
         }
       });
+    $("#modalNotes").modal("open");
   });
 
   // event listener for the save note button
@@ -66,7 +72,7 @@ $(document).ready(function() {
       }
     }).then(function(data) {
       console.log(data);
-      $("#notes").empty();
+      $("#modalNotes").empty();
     });
     // clear out the note fields
     $("#titleinput").val("");
