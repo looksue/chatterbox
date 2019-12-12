@@ -12,7 +12,7 @@ This app is deployed through Heroku. You must go to the link listed below to acc
 6. If you want to go back to view the save article, click on the "saved questions" tab at the top. A modal will pop up and show you the title and the link to the article. Simply click outside the modal window to go back to the home screen. 
 
 **Link to App:** 
-[Heroku](https://chatterbox-looksue.herokuapp.com/)
+[Chat OverFlow hosted on Heroku](https://chatterbox-looksue.herokuapp.com/)
 
 **Summary:**
 This is an ORM app that is supported by Handlebars, Express, Node, Mongoose, Cheerio, and Axios. This app is able to scrape the current questions from the developer-oriented arrgigator site Stack OverFlow.  
