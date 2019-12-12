@@ -25,4 +25,4 @@ This is an ORM app that is supported by Handlebars, Express, Node, Mongoose, Che
 ![Chat OverFlow](public/assets/images/Home.png)
 
 **Link to Project:**
-[Readit](https://github.com/looksue/chatterbox)
+[Chat Overflow](https://github.com/looksue/chatterbox)
