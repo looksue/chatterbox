@@ -22,7 +22,7 @@ This is an ORM app that is supported by Handlebars, Express, Node, Mongoose, Che
 **Tech/Framework:** Node, Express, JavaScript, Mongoose, Handlebars, Cheerio, Axios, ORM
 
 **App Styling Image:
-![Chat OverFlow]()
+![Chat OverFlow](public/assets/images/Home.png)
 
 **Link to Project:**
 [Readit](https://github.com/looksue/chatterbox)
